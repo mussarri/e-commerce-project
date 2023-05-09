@@ -8,9 +8,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
   position: relative;
-  font-weight:400px;
 }
 
 ul li {
@@ -729,6 +727,8 @@ h2.title:before{
   text-transform: uppercase;
 }
 
+
+
 .panel-group .panel-heading + .panel-collapse .panel-body {
   border-top: 0 none;
 }
@@ -899,7 +899,7 @@ h2.title {
   transition: height 500ms ease 0s;
   width: 100%;
   display: block;
-  opacity:;
+
 }
 
 .single-products:hover .product-overlay {
@@ -2141,7 +2141,6 @@ h2.title {
 
 .rating-area {
   border: 1px solid #F7F7F0;
-  direction: block;
   overflow: hidden;
 }
 
@@ -2519,5 +2518,25 @@ h2.title {
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
 }
+.line-2{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.show{
+  display: block!important;
+}
 
 
+
+.panel-body ul li.active a{
+  color: #fdb45e;
+}
+
+.category-products .panel-default .panel-heading.active .panel-title a{
+  color: #fdb45e;
+}
