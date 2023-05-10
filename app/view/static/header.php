@@ -12,16 +12,27 @@
     <link href="<?= public_url() . 'css/prettyPhoto.css'?>" rel="stylesheet">
     <link href="<?= public_url() . 'css/price-range.css' ?>" rel="stylesheet">
     <link href="<?= public_url() . 'css/animate.css' ?>" rel="stylesheet">
-    <link href="<?= public_url() . 'css/main.css?123' ?>" rel="stylesheet">
+    <link href="<?= public_url() . 'css/main.css?113' ?>" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="<?= public_url() . 'js/html5shiv.js' ?>"></script>
     <script src="<?= public_url() . 'js/respond.min.js' ?>"></script>
     <![endif]-->
+
+    <!-- Remember to include jQuery :) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
     <link rel="shortcut icon" href="<?=public_url()?>images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?= public_url() . 'images/ico/apple-touch-icon-144-precomposed.png'?>">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?= public_url() . 'images/ico/apple-touch-icon-114-precomposed.png' ?>">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?= public_url() . 'images/ico/apple-touch-icon-72-precomposed.png' ?>">
     <link rel="apple-touch-icon-precomposed" href="<?= public_url() . 'images/ico/apple-touch-icon-57-precomposed.png' ?>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,700;0,800;1,300;1,400;1,500;1,700;1,800&display=swap" rel="stylesheet">
 </head><!--/head-->
 
 <body>
@@ -89,21 +100,6 @@
                         </button>
                     </div>
                     <div class="mainmenu pull-left">
-                        <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="<?=public_url()?>" class="active">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                </ul>
-                            </li>
-
-                            <li><a href="404.html">404</a></li>
-                            <li><a href="contact-us.html">Contact</a></li>
-                        </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">

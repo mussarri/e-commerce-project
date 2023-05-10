@@ -15,45 +15,8 @@ require view('static/header');
             <div class="row">
                 <div class="col-sm-3">
                     <div class="left-sidebar">
-                        <h2>Category</h2>
-                        <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                            <?php
-                            $query = $db->prepare('SELECT * FROM ecommerce.category');
-                            $query->execute();
-                            $allCategories = $query->fetchAll();
-                            foreach ($allCategories as $category): ?>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a class="title" >
-                                                <button class="badge pull-right" style="border:none;"><i class="fa
-                                                fa-plus"></i></button>
-                                                <a href="<?= site_url('category/') . permalink($category['name'])
-                                                ?>"><?= $category['name']
-                                                    ?></a>
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <ul>
-                                                <?php
-                                                $query = $db->prepare('SELECT * FROM ecommerce.sub_category_1 WHERE up_category_id=' . $category['id']);
-                                                $query->execute();
-                                                $subcategories = $query->fetchAll();
-                                                foreach ($subcategories as $subcategory):
-                                                    ?>
-                                                    <li>
-                                                        <a href="<?= site_url('category/') . permalink($category['name']) . '/'
-                                                        . $subcategory['id']
-                                                        ?>"><?= $subcategory['name'] ?></a></li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-
+                         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                          <?php require view('template-parts/sidebar-categories') ?>
                         </div><!--/category-productsr-->
 
                         <div class="brands_products"><!--brands_products-->
@@ -95,7 +58,7 @@ require view('static/header');
                         </div><!--/price-range-->
 
                         <div class="shipping text-center"><!--shipping-->
-                            <img src="<?=public_url()?>images/home/shipping.jpg" alt="">
+                            <img src="<?= public_url() ?>images/home/shipping.jpg" alt="">
                         </div><!--/shipping-->
 
                     </div>
@@ -106,19 +69,47 @@ require view('static/header');
                         <h2 class="title text-center">Features Items</h2>
 
                         <?php
+
+                        $page = $_GET['pageno'] ?? 1;
                         $query = $db->prepare('SELECT * FROM ecommerce.product');
+                        $query->execute();
+                        $total_rows = $query->rowCount();
+
+                        $per_page = 1;
+                        $offset = ($page - 1) * $per_page;
+                        $total_pages = ceil($total_rows / $per_page);
+
+                        $sql = 'SELECT * FROM ecommerce.product WHERE category_id  LIMIT ' . $offset . ',' . $per_page;
+
+                        $query = $db->prepare($sql);
                         $query->execute();
                         $products = $query->fetchAll();
                         foreach ($products as $product) {
                             require view('template-parts/feature-products');
                         } ?>
-
-                        <ul class="pagination">
-                            <li class="active"><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">»</a></li>
-                        </ul>
+                        <div class="col-sm-12 text-center">
+                            <ul class="pagination">
+                                <?php
+                                if ($page > 1):
+                                    ?>
+                                    <li class=""><a href="?pageno=<?= $page - 1 ?>"><i class="fa fa-sm
+                                    fa-angle-left"></i></a>
+                                    </li>
+                                    <li class=""><a href="?pageno=<?= $page - 1 ?>"><?= $page - 1 ?></a>
+                                    </li>
+                                <?php endif; ?>
+                                <li class="active"><a href="?pageno=<?= $page ?>"><?= $page ?></a>
+                                </li>
+                                <?php if ($page < $total_pages): ?>
+                                    <li class=""><a href="?pageno=<?= $page + 1 ?>"><?= $page + 1 ?></a>
+                                    </li>
+                                    <li class=""><a href="?pageno=<?= $page + 1 ?>"> <i class="fa fa-sm
+                                    fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
                     </div><!--features_items-->
                 </div>
             </div>

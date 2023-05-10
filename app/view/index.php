@@ -1,4 +1,4 @@
-<?php global $categories, $products;
+<?php global $categories, $products, $db;
 require view('static/header'); ?>
 
 
@@ -8,45 +8,20 @@ require view('static/header'); ?>
     </div>
 </section><!--/slider-->
 
+<section id="advertisement">
+    <div class="container">
+        <img src="https://localhost/e-commerce-project/public/images/shop/advertisement.jpg" alt="">
+    </div>
+</section>
+
 <section>
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
                 <div class="left-sidebar">
-                    <h2>Category</h2>
+
                     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-
-                        <?php foreach ($categories as $category): ?>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a>
-                                            <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                            <?= $category['name']; ?>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="dropdown" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul>
-                                            <?php
-                                            global $db;
-                                            $query = $db->prepare('SELECT  * FROM ecommerce.sub_category_1 WHERE up_category_id=:up_category_id ');
-                                            $query->execute([
-                                                'up_category_id' => $category['id']
-                                            ]);
-                                            $result = $query->fetchAll();
-                                            foreach ($result as $subcategory):
-                                                ?>
-                                                <li><a href="#"><?= $subcategory['name'] ?> </a></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-
-
+                        <?php require view('template-parts/sidebar-categories')?>
                     </div><!--/category-products-->
 
                     <div class="brands_products"><!--brands_products-->
@@ -80,47 +55,13 @@ require view('static/header'); ?>
             <div class="col-sm-9 padding-right">
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
-                    <?php foreach ($products as $product): ?>
-                        <div class="col-sm-4">
-                            <div class="product-image-wrapper">
-                                <div class="single-products">
-                                    <div class="productinfo text-center">
-                                        <img src="<?= $product['image_url'] ?>" alt="" height="230"/>
-                                        <h2>$<?= price($product['price']) ?></h2>
-                                        <p class="line-2"><?= $product['name'] ?>...</p>
-
-                                        <a href="#" class="btn btn-default add-to-cart"><i
-                                                class="fa fa-shopping-cart"></i>Add
-                                            to cart</a>
-                                    </div>
-                                    <div class="product-overlay">
-                                        <div class="overlay-content">
-                                            <h2>$<?= price($product['price']) ?></h2>
-                                            <p> <?= $product['name'] ?></p>
-                                            <a href="<?= site_url('category/'.permalink($product['id']
-                                                . $product['up_category_id'])) .
-                                            $product['id'] ?>"
-                                               class="btn
-                                        btn-default
-                                        add-to-cart"><i
-                                                    class="fa fa-shopping-cart"></i>Add
-                                                to cart</a>
-                                            <a href="#" class="btn btn-default add-to-cart"><i
-                                                    class="fa fa-shopping-cart"></i>Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="choose">
-                                    <ul class="nav nav-pills nav-justified">
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-
-
+                    <?php
+                    $query = $db->prepare('SELECT * FROM ecommerce.product');
+                    $query->execute();
+                    $products = $query->fetchAll();
+                    foreach ($products as $product){
+                       require view('template-parts/feature-products');
+                    }?>
                 </div><!--features_items-->
 
                 <div class="category-tab"><!--category-tab-->
@@ -139,7 +80,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery1.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery1.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -153,7 +94,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery2.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery2.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -167,7 +108,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery3.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery3.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -181,7 +122,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery4.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery4.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -198,7 +139,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery4.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery4.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -212,7 +153,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery3.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery3.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -226,7 +167,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery2.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery2.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -240,7 +181,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery1.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery1.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -257,7 +198,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery3.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery3.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -271,7 +212,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery4.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery4.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -285,7 +226,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery1.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery1.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -299,7 +240,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery2.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery2.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -316,7 +257,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery1.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery1.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -330,7 +271,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery2.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery2.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -344,7 +285,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery3.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery3.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -358,7 +299,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery4.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery4.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -375,7 +316,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery2.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery2.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -389,7 +330,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery4.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery4.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -403,7 +344,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery3.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery3.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -417,7 +358,7 @@ require view('static/header'); ?>
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/gallery1.jpg" alt=""/>
+                                            <img src="<?=public_url()?>images/home/gallery1.jpg" alt=""/>
                                             <h2>$56</h2>
                                             <p>Easy Polo Black Edition</p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
@@ -441,7 +382,7 @@ require view('static/header'); ?>
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="images/home/recommend1.jpg" alt=""/>
+                                                <img src="<?=public_url()?>images/home/recommend1.jpg" alt=""/>
                                                 <h2>$56</h2>
                                                 <p>Easy Polo Black Edition</p>
                                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -455,7 +396,7 @@ require view('static/header'); ?>
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="images/home/recommend2.jpg" alt=""/>
+                                                <img src="<?=public_url()?>images/home/recommend2.jpg" alt=""/>
                                                 <h2>$56</h2>
                                                 <p>Easy Polo Black Edition</p>
                                                 <a href="#" class="btn btn-default add-to-cart"><i
@@ -469,7 +410,7 @@ require view('static/header'); ?>
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="images/home/recommend3.jpg" alt=""/>
+                                                <img src="<?=public_url()?>images/home/recommend3.jpg" alt=""/>
                                                 <h2>$56</h2>
                                                 <p>Easy Polo Black Edition</p>
                                                 <a href="#" class="btn btn-default add-to-cart"><i

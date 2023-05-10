@@ -18,6 +18,8 @@ function get($name){
             },$_GET[$name]);
         }
         return htmlspecialchars(trim($_GET[$name]));
+    }else{
+        return false;
     }
 }
 
