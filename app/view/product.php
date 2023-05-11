@@ -19,17 +19,22 @@ require view('static/header') ?>
                             <p>Web ID: 1089772</p>
                             <img src="<?= public_url() ?>images/product-details/rating.png" alt=""/>
                             <span>
+                                <form action="" onsubmit="return false" id="addcart">
 									<span>US <?= price($row['price']); ?></span>
 									<label>Quantity:</label>
-									<input type="text" value="1"/>
-									<button type="button" class="btn btn-default cart">
+									<input type="text" name="quantity" value="1"/>
+                                    <input type="hidden" name="product_id" value="<?= $row['id'] ?>">
+									<button type="button" class="btn btn-default cart" onclick="addcart
+                                        ('#addcart')">
 										<i class="fa fa-shopping-cart"></i>
 										Add to cart
 									</button>
-								</span>
+                                </form>
+                            </span>
                             <p><b>Availability:</b> In Stock</p>
                             <p><b>Condition:</b> New</p>
                             <p><b>Brand:</b> <?= $row['brand'] ?></p>
+                            <p class="notify"></p>
                             <a href=""><img src="<?= public_url() ?>images/product-details/share.png"
                                             class="share img-responsive"
                                             alt=""/></a>
@@ -115,7 +120,8 @@ require view('static/header') ?>
                                         incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
                                         nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                                         consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                        dolore eu fugiat nulla pariatur.</div>
+                                        dolore eu fugiat nulla pariatur.
+                                    </div>
                                 </div>
                                 <div>
                                     <ul>
@@ -127,7 +133,8 @@ require view('static/header') ?>
                                         incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
                                         nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                                         consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                        dolore eu fugiat nulla pariatur.</div>
+                                        dolore eu fugiat nulla pariatur.
+                                    </div>
                                 </div>
                                 <br>
 
@@ -261,7 +268,7 @@ require view('static/header') ?>
 
             </div>
             <div class="col-sm-3">
-                <?php require view('template-parts/product-widget')?>
+                <?php require view('template-parts/product-widget') ?>
             </div>
         </div>
     </div>
@@ -275,6 +282,9 @@ require view('static/header') ?>
         Sepetinizde kurumsal faturayla alışverişe uygun olmayan ürünler olması durumunda bireysel fatura ile
         alışverişinize devam edebilirsiniz</p>
 </div>
+
+
+
 
 
 <?php require view('static/footer') ?>

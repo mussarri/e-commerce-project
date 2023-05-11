@@ -1,13 +1,15 @@
 <div class="col-sm-4">
     <div class="product-image-wrapper">
-        <a href="<?= site_url('product/').$product['id'] ?>">
+        <a href="<?= site_url('product/') . $product['id'] ?>">
             <div class="single-products">
                 <div class="productinfo text-center">
                     <img src="<?= $product['image_url'] ?>" alt="" height="250">
                     <h2>$<?= $product['price'] ?></h2>
                     <p class="line-2"><?= $product['name'] ?></p>
-                    <a href="#" class="btn btn-default add-to-cart"><i
-                            class="fa fa-shopping-cart"></i>Add to cart</a>
+                    <a href="<?=site_url('api').'/addcart?product_id='.$product['id']?>" class="btn btn-default
+                    add-to-cart"><i
+                    class="fa fa-shopping-cart"></i>Add to cart</a>
+
                 </div>
             </div>
         </a>

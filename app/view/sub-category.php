@@ -27,6 +27,32 @@ require view('static/header');
                         <h2 class="title text-center">Features Items</h2>
 
                         <?php
+                        $type = null;
+                        if (get('type')) {
+                            $type = get('type');
+                        } else {
+                            $type = 'all';
+                        } ?>
+                        <div class="category-tab">
+                            <div class="col-sm-12">
+                                <ul class="nav nav-tabs">
+                                    <li class="<?= $type == 'all' ? ' active' : '' ?>"><a href="?type=all">All</a></li>
+                                    <li class="<?= $type == 'laptop' ? ' active' : '' ?>"><a
+                                            href="?type=laptop">Laptop</a>
+                                    </li>
+                                    <li class="<?= $type == 'phone' ? ' active' : '' ?>"><a
+                                            href="?type=phone">Phones</a>
+                                    </li>
+                                    <li class="<?= $type == 'tablet' ? ' active' : '' ?>"><a
+                                            href="?type=tablet">Tablets</a>
+                                    </li>
+                                </ul>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+                        <?php
 
                         if (isset($_GET['pageno'])) {
                             $page = $_GET['pageno'];

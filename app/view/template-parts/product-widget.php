@@ -1,4 +1,5 @@
 <div class="product-widget-list">
+    <?php if(in_array(1, explode(',', $row['campaigns']))): ?>
     <div component-id="11" class="corporate-invoice-widget">
         <div class="corporate-invoice-header">
             <div class="corporate-invoice-icon"></div>
@@ -10,7 +11,8 @@
                                         class="i-arrow-right"></i></span></span>
         </div>
     </div>
-    <?php if ($row['price'] > 1000): ?>
+        <?php endif;?>
+    <?php if(in_array(2, explode(',', $row['campaigns']))): ?>
         <div class="onboarding">
             <div>
                 <section component-id="12" class="campaigns-widget widget orange"><h2
