@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: 'source_sans_prosemibold';
-    src: url(public/fonts/SourceSansPro-Semibold.ttf);
+    src: url(SourceSansPro-Semibold.ttf);
 }
 
 body {
@@ -265,7 +265,7 @@ a#scrollUp i {
     outline: medium none;
     padding-left: 10px;
     width: 155px;
-    background-image: url(../images/home/searchicon.png);
+    background-image: url(searchicon.png);
     background-repeat: no-repeat;
     background-position: 130px;
 }

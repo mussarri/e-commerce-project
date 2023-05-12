@@ -1,18 +1,31 @@
 <div class="product-widget-list">
-    <?php if(in_array(1, explode(',', $row['campaigns']))): ?>
-    <div component-id="11" class="corporate-invoice-widget">
-        <div class="corporate-invoice-header">
-            <div class="corporate-invoice-icon"></div>
-            <div>Kurumsal Fatura</div>
-        </div>
-        <div class="corporate-invoice-description"><span>Bu ürünü <span
-                    class="corporate-invoice-bold">Kurumsal Fatura</span> ile satın alabilirsiniz.
+    <?php
+    global $db, $row;
+    $query = $db->prepare('SELECT campaign_id FROM ecommerce.product_campaigns WHERE product_id=:product_id');
+    $query->execute([
+        'product_id' => $row['id']
+    ]);
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    if (!$result) {
+        $result = 0;
+    } else {
+        $result = $result['campaign_id'];
+    }
+    ?>
+    <?php if ($result == 1): ?>
+        <div component-id="11" class="corporate-invoice-widget">
+            <div class="corporate-invoice-header">
+                <div class="corporate-invoice-icon"></div>
+                <div>Kurumsal Fatura</div>
+            </div>
+            <div class="corporate-invoice-description"><span>Bu ürünü <span
+                        class="corporate-invoice-bold">Kurumsal Fatura</span> ile satın alabilirsiniz.
                                 <span class="corporate-invoice-link"> <a href="#ex1" rel="modal:open">İncele</a><i
                                         class="i-arrow-right"></i></span></span>
+            </div>
         </div>
-    </div>
-        <?php endif;?>
-    <?php if(in_array(2, explode(',', $row['campaigns']))): ?>
+    <?php endif; ?>
+    <?php if ($result == 2): ?>
         <div class="onboarding">
             <div>
                 <section component-id="12" class="campaigns-widget widget orange"><h2
@@ -27,30 +40,4 @@
             </div>
         </div>
     <?php endif; ?>
-    <section class="seller-widget widget">
-        <div class="widget-title product-seller-line">
-            <div class="pr-mb">
-                <div class="pr-mb-mn">
-                    <div class="seller-container">
-                        <div class="seller-name-text" title="MegaTeknoloji">MegaTeknoloji</div>
-                    </div>
-                    <div class="sl-pn" style="background-color: rgb(4, 155, 36);">9.4</div>
-
-                </div>
-            </div>
-            <img alt="merchant-badge-image" loading="lazy" class="merchant-badge"
-                 src="https://cdn.dsmcdn.com/seller-store/resources/basarili_satici.svg">
-            <img
-                alt="merchant-badge-image" loading="lazy" class="merchant-badge"
-                src="https://cdn.dsmcdn.com/seller-store/resources/hizli-satici.svg">
-            <button class="follow-btn">Takip Et</button>
-            <a class="widget-row flex" href="<?= site_url('shop/') ?>>"><i
-                    class="fa-solid fa-shop"></i>
-                <div><span>Mağazayı Gör</span><span class="seller-follower-count">1.1B Takipçi</span>
-                </div>
-                <i class="fa fa-angle-right"></i></a>
-        </div>
-
-    </section>
-
 </div>

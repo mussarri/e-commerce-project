@@ -1,4 +1,4 @@
-<?php global $row;
+<?php global $row, $db, $comments, $comment_count;
 require view('static/header') ?>
 <section>
     <div class="container">
@@ -20,7 +20,7 @@ require view('static/header') ?>
                             <img src="<?= public_url() ?>images/product-details/rating.png" alt=""/>
                             <span>
                                 <form action="" onsubmit="return false" id="addcart">
-									<span>US <?= price($row['price']); ?></span>
+									<span>$<?= price($row['price']); ?></span>
 									<label>Quantity:</label>
 									<input type="text" name="quantity" value="1"/>
                                     <input type="hidden" name="product_id" value="<?= $row['id'] ?>">
@@ -46,112 +46,75 @@ require view('static/header') ?>
                     <div class="col-sm-12">
                         <ul class="nav nav-tabs">
                             <li><a href="#details" data-toggle="tab">Details</a></li>
-                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+                            <li class="active"><a href="#reviews" data-toggle="tab">Reviews (<?= $comment_count ?>)
+                                </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane fade" id="details">
-                            <div class="col-sm-3">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="images/home/gallery1.jpg" alt=""/>
-                                            <h2>$56</h2>
-                                            <p>Easy Polo Black Edition</p>
-                                            <button type="button" class="btn btn-default add-to-cart"><i
-                                                    class="fa fa-shopping-cart"></i>Add to cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="images/home/gallery2.jpg" alt=""/>
-                                            <h2>$56</h2>
-                                            <p>Easy Polo Black Edition</p>
-                                            <button type="button" class="btn btn-default add-to-cart"><i
-                                                    class="fa fa-shopping-cart"></i>Add to cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="images/home/gallery3.jpg" alt=""/>
-                                            <h2>$56</h2>
-                                            <p>Easy Polo Black Edition</p>
-                                            <button type="button" class="btn btn-default add-to-cart"><i
-                                                    class="fa fa-shopping-cart"></i>Add to cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="images/home/gallery4.jpg" alt=""/>
-                                            <h2>$56</h2>
-                                            <p>Easy Polo Black Edition</p>
-                                            <button type="button" class="btn btn-default add-to-cart"><i
-                                                    class="fa fa-shopping-cart"></i>Add to cart
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-10 m-auto" style="padding: 10px">
+
+                                <?php if ($row['description']): ?>
+                                    <?= $row['description'] ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="tab-pane fade active in" id="reviews">
                             <div class="col-sm-12">
-                                <div>
-                                    <ul>
-                                        <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                                        <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                        <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                                    </ul>
-                                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                        dolore eu fugiat nulla pariatur.
-                                    </div>
-                                </div>
-                                <div>
-                                    <ul>
-                                        <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                                        <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                        <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                                    </ul>
-                                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                        dolore eu fugiat nulla pariatur.
-                                    </div>
-                                </div>
-                                <br>
+                                <?php if ($comments): ?>
+                                    <?php foreach ($comments as $comment): ?>
+                                        <div>
+                                            <ul>
+                                                <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
+                                                <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
+                                                <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
+                                            </ul>
+                                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                                eiusmod
+                                                tempor
+                                                incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam,
+                                                quis
+                                                nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                                cillum
+                                                dolore eu fugiat nulla pariatur.
+                                            </div>
+                                        </div>
+                                        <br>
 
-
-                                <p><b>Write Your Review</b></p>
-
-                                <form action="#">
+                                    <?php endforeach; ?>
+                                    <p><b>Write Your Review</b></p>
+                                    <form action="#">
 										<span>
 											<input type="text" placeholder="Your Name"/>
 											<input type="email" placeholder="Email Address"/>
 										</span>
-                                    <textarea name=""></textarea>
-                                    <b>Rating: </b> <img src="images/product-details/rating.png" alt=""/>
-                                    <button type="button" class="btn btn-default pull-right">
-                                        Submit
-                                    </button>
-                                </form>
+                                        <textarea name=""></textarea>
+                                        <b>Rating: </b> <img src="images/product-details/rating.png" alt=""/>
+                                        <button type="button" class="btn btn-default pull-right">
+                                            Submit
+                                        </button>
+                                    </form>
+                                <?php elseif (!session('id')): ?>
+                                    <p><b>Yorum yapmak için <a href="<?=site_url('login')?>" style="color:
+                                    #aaa">giriş</a>
+                                            yapınız</b></p>
+                                <?php else: ?>
+                                    <p><b>Write First Review</b></p>
+                                    <form action="#">
+										<span>
+											<input type="text" placeholder="Your Name"/>
+											<input type="email" placeholder="Email Address"/>
+										</span>
+                                        <textarea name=""></textarea>
+                                        <b>Rating: </b> <img src="images/product-details/rating.png" alt=""/>
+                                        <button type="button" class="btn btn-default pull-right">
+                                            Submit
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
+
+
                             </div>
                         </div>
                     </div>
@@ -277,14 +240,13 @@ require view('static/header') ?>
 <!-- Modal HTML embedded directly into document -->
 <div id="ex1" class="modal">
     <div>Kurumsal Satıcı</div>
-    <p>Bu satıcıya ait ürünler kurumsal faturalı alışverişe uygundur. Satıcının ürünlerini sepetinize ekledikten sonra
-        kayıtlı kurumsal fatura adresinizi seçerek / yeni kurumsal fatura adresi oluşturarak alışveriş yapabilirsiniz.
+    <p>Bu satıcıya ait ürünler kurumsal faturalı alışverişe uygundur. Satıcının ürünlerini sepetinize ekledikten
+        sonra
+        kayıtlı kurumsal fatura adresinizi seçerek / yeni kurumsal fatura adresi oluşturarak alışveriş
+        yapabilirsiniz.
         Sepetinizde kurumsal faturayla alışverişe uygun olmayan ürünler olması durumunda bireysel fatura ile
         alışverişinize devam edebilirsiniz</p>
 </div>
-
-
-
 
 
 <?php require view('static/footer') ?>

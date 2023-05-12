@@ -6,16 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title><?=setting('title')?></title>
     <link href="<?= public_url() . 'css/bootstrap.min.css' ?>" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="<?= public_url() . 'css/prettyPhoto.css' ?>" rel="stylesheet">
     <link href="<?= public_url() . 'css/price-range.css' ?>" rel="stylesheet">
     <link href="<?= public_url() . 'css/animate.css' ?>" rel="stylesheet">
     <link href="<?= public_url() . 'css/main.css?13' ?>" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/mssiioo9a2r79gm8vdx923i0gvw0b18y5p8hf4qqtigy4162/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
+
     <!--[if lt IE 9]>
     <script src="<?= public_url() . 'js/html5shiv.js' ?>"></script>
     <script src="<?= public_url() . 'js/respond.min.js' ?>"></script>
@@ -52,8 +50,8 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i><?=setting('tel')?></a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i> <?=setting('email')?></a></li>
                         </ul>
                     </div>
                 </div>

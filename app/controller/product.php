@@ -1,8 +1,8 @@
 <?php
 
 global $db;
-if (!route(1)){
-    header('Location:'.site_url());
+if (!route(1)) {
+    header('Location:' . site_url());
     exit;
 }
 
@@ -12,9 +12,17 @@ $query->execute([
 ]);
 $row = $query->fetch(PDO::FETCH_ASSOC);
 
-if(!$row){
+$query = $db->prepare('SELECT * FROM ecommerce.comments WHERE comment_post_id=:id');
+$query->execute([
+    'id' => $row['id']
+]);
+$comment_count=$query->rowCount();
+$comments = $query->fetchAll();
+
+
+if (!$row) {
     echo 'error';
-    exit;
+    header('Location:' . site_url());
 }
 
 require view('product');

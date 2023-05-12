@@ -10,7 +10,7 @@ require view('static/header'); ?>
 
 <section id="advertisement">
     <div class="container">
-        <img src="https://localhost/e-commerce-project/public/images/shop/advertisement.jpg" alt="">
+        <img src="<?=public_url()?>images/shop/advertisement.jpg" alt="">
     </div>
 </section>
 
@@ -56,7 +56,7 @@ require view('static/header'); ?>
                 <div class="features_items"><!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
                     <?php
-                    $query = $db->prepare('SELECT * FROM ecommerce.product');
+                    $query = $db->prepare('SELECT * FROM ecommerce.product order by id DESC LIMIT 0,3');
                     $query->execute();
                     $products = $query->fetchAll();
                     foreach ($products as $product){
